@@ -42,6 +42,7 @@
 		document.getElementById("selCat"+cnt).disabled=false;
 		document.getElementById("selProdName"+cnt).disabled=false;
 		document.getElementById("selBrandName"+cnt).disabled=false;
+		document.getElementById("selUnitName"+cnt).disabled=false;
 		document.getElementById("txtPrice"+cnt).disabled=false;
 		document.getElementById("txtProdDesc"+cnt).disabled=false;
 		document.getElementById("txtComment"+cnt).disabled=false;
@@ -49,6 +50,7 @@
 			document.getElementById("selCat"+cnt).disabled=true;
 			document.getElementById("selProdName"+cnt).disabled=true;
 			document.getElementById("selBrandName"+cnt).disabled=true;
+			document.getElementById("selUnitName"+cnt).disabled=true;
 			document.getElementById("txtPrice"+cnt).disabled=true;
 			document.getElementById("txtProdDesc"+cnt).disabled=true;
 			document.getElementById("txtComment"+cnt).disabled=true;
@@ -78,10 +80,10 @@ function addRow(tableID) {
 		   option="<option value=''>---select---</option><option value='"+arrCatValue[i]+"'>"+arrCatName[i]+"</option>";
 	   } 
    }
-   secondCell.innerHTML="<select name='selCat"+rowCount+"' id='selCat"+rowCount+"' onchange='showProdByCatId("+rowCount+")' disabled='disabled'>"+option+"</select>";
+   secondCell.innerHTML="<select style='width: 110px' name='selCat"+rowCount+"' id='selCat"+rowCount+"' onchange='showProdByCatId("+rowCount+")' disabled='disabled'>"+option+"</select>";
    
    var thirdCell = row.insertCell(2);  
-   thirdCell.innerHTML="<div id='divProdName"+rowCount+"'><select name='selProdName"+rowCount+"' id='selProdName"+rowCount+"' disabled='disabled'><option>---select---</option></select></div>";
+   thirdCell.innerHTML="<div id='divProdName"+rowCount+"'><select style='width: 110px' name='selProdName"+rowCount+"' id='selProdName"+rowCount+"' disabled='disabled'><option>---select---</option></select></div>";
    
    var fourthCell = row.insertCell(3);
    var option="";
@@ -98,19 +100,36 @@ function addRow(tableID) {
 	   } 
    }
   // alert(option);
-   fourthCell.innerHTML="<select name='selBrandName"+rowCount+"' id='selBrandName"+rowCount+"' disabled='disabled'>"+option+"</select>";
+   fourthCell.innerHTML="<select style='width: 110px' name='selBrandName"+rowCount+"' id='selBrandName"+rowCount+"' disabled='disabled'>"+option+"</select>";
+   
+   var fourthCell1 = row.insertCell(4);
+   var option="";
+   var unitName=document.getElementById("hdnUnitName").value;  
+   var unitValue=document.getElementById("hdnUnitValue").value;  
+   var arrUnitName=unitName.split(",");
+   var arrUnitValue=unitValue.split(",");
+   for(var i=0;i<arrUnitName.length;i++){
+	 //  alert(arrCatValue[i]+"<=> "+arrCatName[i]);
+	   if(option!=""){
+		   option=option+"<option value='"+arrUnitValue[i]+"'>"+arrUnitName[i]+"</option>";
+	   }else{
+		   option="<option value=''>---select---</option><option value='"+arrUnitValue[i]+"'>"+arrUnitName[i]+"</option>";
+	   } 
+   }
+  // alert(option);
+   fourthCell1.innerHTML="<select style='width: 110px' name='selUnitName"+rowCount+"' id='selUnitName"+rowCount+"' disabled='disabled'>"+option+"</select>";
    
    //alert(rowCount);
-   var fifthCell = row.insertCell(4);  
-   fifthCell.innerHTML="<input type='text' name='txtPrice"+rowCount+"' id='txtPrice"+rowCount+"' disabled='disabled'>";
+   var fifthCell = row.insertCell(5);  
+   fifthCell.innerHTML="<input type='text' style='width: 110px' name='txtPrice"+rowCount+"' id='txtPrice"+rowCount+"' disabled='disabled'>";
    
-   var sixthCell = row.insertCell(5);  
-   sixthCell.innerHTML="<input type='text' name='txtProdDesc"+rowCount+"' id='txtProdDesc"+rowCount+"' disabled='disabled'>";
+   var sixthCell = row.insertCell(6);  
+   sixthCell.innerHTML="<input type='text' style='width: 110px' name='txtProdDesc"+rowCount+"' id='txtProdDesc"+rowCount+"' disabled='disabled'>";
    
-   var seventhCell = row.insertCell(6);  
-   seventhCell.innerHTML="<input type='text' name='txtComment"+rowCount+"' id='txtComment"+rowCount+"' disabled='disabled'>";
+   var seventhCell = row.insertCell(7);  
+   seventhCell.innerHTML="<input type='text' style='width: 110px' name='txtComment"+rowCount+"' id='txtComment"+rowCount+"' disabled='disabled'>";
    
-   var eighthCell = row.insertCell(7);  
+   var eighthCell = row.insertCell(8);  
    eighthCell.innerHTML="<img name='imgRemove' id='imgRemove' src='images/remove.jpg' height='18' width='20' onclick='deleteRow()'>";
    
 }
@@ -152,6 +171,7 @@ try{
 					<th>Category</th>
 					<th>Product</th>
 					<th>Brand</th>
+					<th>Unit</th>
 					<th>Price</th>
 					<th>Product Description</th>
 					<th>Comment <img name="imgAdd" id="imgAdd" src="images/add.jpg" height="18" width="20" onclick="addRow('dataTable')"></th>				
@@ -186,7 +206,7 @@ try{
 							Statement st1 = con.createStatement();
 							ResultSet rs1 = st1.executeQuery(selectQry);							
 						%>
-							<select name="selCat<%=cnt %>" id="selCat<%=cnt%>" onchange="showProdByCatId(<%=cnt %>)" disabled="disabled" required="required">
+							<select style='width: 110px' name="selCat<%=cnt %>" id="selCat<%=cnt%>" onchange="showProdByCatId(<%=cnt %>)" disabled="disabled" required="required">
 								<option value="">---Select---</option>
 								<%
 								
@@ -229,7 +249,7 @@ try{
 							ResultSet rs_brand=st_brand.executeQuery(qry_brand);										
 							try{
 					%>					
-						<select name="selBrandName<%=cnt%>" id="selBrandName<%=cnt%>" disabled="disabled" required="required">
+						<select style='width: 110px' name="selBrandName<%=cnt%>" id="selBrandName<%=cnt%>" disabled="disabled" required="required">
 							<option value="">---select---</option>
 							<%
 							while(rs_brand.next()){
@@ -254,11 +274,45 @@ try{
 							
 						} %>
 					</td>
-					<td><input type="text" name="txtPrice<%=cnt %>" id="txtPrice<%=cnt%>" value="" disabled="disabled" required="required">
+					<td>	
+					<%
+						try{
+							String unitName=null,unitValue=null;
+							String qry_unit="select * from units";
+							Statement st_unit=con.createStatement();
+							ResultSet rs_unit=st_unit.executeQuery(qry_unit);										
+							try{
+					%>					
+						<select style='width: 110px' name="selUnitName<%=cnt%>" id="selUnitName<%=cnt%>" disabled="disabled" required="required">
+							<option value="">---select---</option>
+							<%
+							while(rs_unit.next()){
+								if(unitName!=null){
+									unitName=unitName+","+rs_unit.getString(2);
+									unitValue=unitValue+","+rs_unit.getString(1);
+								}else{
+									unitName=rs_unit.getString(2);
+									unitValue=rs_unit.getString(1);
+								}
+								%>
+								<option value="<%=rs_unit.getInt(1)%>"><%=rs_unit.getString(2) %></option>
+								<%
+							} 								
+							%>
+						</select>
+						<input type="hidden" name="hdnUnitName" id="hdnUnitName" value="<%=unitName%>">
+						<input type="hidden" name="hdnUnitValue" id="hdnUnitValue" value="<%=unitValue%>">
+						<%}catch(Exception ex){
+							
+						}}catch(Exception ex){
+							
+						} %>
 					</td>
-					<td><input type="text" name="txtProdDesc<%=cnt %>" id="txtProdDesc<%=cnt%>" value="" disabled="disabled">
+					<td><input style='width: 110px' type="text" name="txtPrice<%=cnt %>" id="txtPrice<%=cnt%>" value="" disabled="disabled" required="required">
 					</td>
-					<td><input type="text" name="txtComment<%=cnt %>" id="txtComment<%=cnt%>" value="" disabled="disabled">
+					<td><input style='width: 110px' type="text" name="txtProdDesc<%=cnt %>" id="txtProdDesc<%=cnt%>" value="" disabled="disabled">
+					</td>
+					<td><input style='width: 110px' type="text" name="txtComment<%=cnt %>" id="txtComment<%=cnt%>" value="" disabled="disabled">
 					</td>
 				</tr>				
 				<%

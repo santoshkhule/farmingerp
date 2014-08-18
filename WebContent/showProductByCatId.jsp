@@ -29,7 +29,7 @@
 			
 		 
 %>
-	<select name="selProdName<%=cnt%>" id="selProdName<%=cnt%>" required="required">
+	<select style='width: 110px' name="selProdName<%=cnt%>" id="selProdName<%=cnt%>" required="required">
 		<option value="">---select---</option>
 		<%while(rs_prod.next()){
 			%>
@@ -40,7 +40,7 @@
 
 <%
 		}else{ %>
-<select name="selProdName<%=cnt%>" id="selProdName<%=cnt%>"	disabled="disabled" required="required">
+<select style='width: 110px' name="selProdName<%=cnt%>" id="selProdName<%=cnt%>"	disabled="disabled" required="required">
 	<option value="">---select---</option>		
 </select>
 <%

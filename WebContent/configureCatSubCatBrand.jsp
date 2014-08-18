@@ -27,12 +27,14 @@
 					<tr>
 						<th>Category</th>
 						<th>Product</th>
-						<th>Brand</th>					
+						<th>Brand</th>
+						<th>Units</th>					
 					</tr>
 					<tr>
 						<td><iframe name="ifrmCat" src="addCategory.jsp" width="100%" height="400"></iframe></td>
 						<td><iframe name="ifrmProd" src="addFertilizer.jsp" width="100%" height="400"></iframe></td>
-						<td><iframe name="ifrmBrand" src="addBrand.jsp" width="100%" height="400"></iframe></td>					
+						<td><iframe name="ifrmBrand" src="addBrand.jsp" width="100%" height="400"></iframe></td>
+							<td><iframe name="ifrmUnit" src="addUnits.jsp" width="100%" height="400"></iframe></td>					
 					</tr>
 				</table>
 			<!-- </form> -->

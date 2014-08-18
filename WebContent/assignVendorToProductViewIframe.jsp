@@ -48,6 +48,7 @@
 				document.getElementById("txtPrice"+cnt).disabled=false;
 				document.getElementById("txtProdDesc"+cnt).disabled=false;
 				document.getElementById("txtComment"+cnt).disabled=false;
+				document.getElementById("selUnitName"+cnt).disabled=false;
 				}else{
 					document.getElementById("selCat"+cnt).disabled=true;
 					document.getElementById("selProdName"+cnt).disabled=true;
@@ -55,6 +56,7 @@
 					document.getElementById("txtPrice"+cnt).disabled=true;
 					document.getElementById("txtProdDesc"+cnt).disabled=true;
 					document.getElementById("txtComment"+cnt).disabled=true;
+					document.getElementById("selUnitName"+cnt).disabled=false;
 				}
 		}else{
 			//alert("hide");
@@ -66,6 +68,7 @@
 		document.getElementById("txtPrice"+cnt).hidden=false;
 		document.getElementById("txtProdDesc"+cnt).hidden=false;
 		document.getElementById("txtComment"+cnt).hidden=false;
+		document.getElementById("selUnitName"+cnt).hidden=false;
 		
 		//<span> Show
 		document.getElementById("spanCat"+cnt).hidden=true;
@@ -74,6 +77,7 @@
 		document.getElementById("spanPrice"+cnt).hidden=true;
 		document.getElementById("spanProdDesc"+cnt).hidden=true;
 		document.getElementById("spanComment"+cnt).hidden=true;
+		document.getElementById("spanUnitName"+cnt).hidden=true;
 		
 		//submit show 
 		document.getElementById("sbtEdit"+cnt).hidden=false;
@@ -84,6 +88,7 @@
 			document.getElementById("selCat"+cnt).hidden=true;
 			document.getElementById("selProdName"+cnt).hidden=true;
 			document.getElementById("selBrandName"+cnt).hidden=true;
+			document.getElementById("selUnitName"+cnt).hidden=true;
 			document.getElementById("txtPrice"+cnt).hidden=true;
 			document.getElementById("txtProdDesc"+cnt).hidden=true;
 			document.getElementById("txtComment"+cnt).hidden=true;
@@ -92,6 +97,7 @@
 			document.getElementById("spanCat"+cnt).hidden=false;
 			document.getElementById("spanProdName"+cnt).hidden=false;
 			document.getElementById("spanBrandName"+cnt).hidden=false;
+			document.getElementById("spanUnitName"+cnt).hidden=false;
 			document.getElementById("spanPrice"+cnt).hidden=false;
 			document.getElementById("spanProdDesc"+cnt).hidden=false;
 			document.getElementById("spanComment"+cnt).hidden=false;
@@ -127,10 +133,10 @@ function addRow(tableID) {
 		   option="<option value=''>---select---</option><option value='"+arrCatValue[i]+"'>"+arrCatName[i]+"</option>";
 	   } 
    }
-   secondCell.innerHTML="<select name='selCat"+rowCount+"' id='selCat"+rowCount+"' onchange='showProdByCatId("+rowCount+")' disabled='disabled'>"+option+"</select>";
+   secondCell.innerHTML="<select style='width: 110px' name='selCat"+rowCount+"' id='selCat"+rowCount+"' onchange='showProdByCatId("+rowCount+")' disabled='disabled'>"+option+"</select>";
    
    var thirdCell = row.insertCell(2);  
-   thirdCell.innerHTML="<div id='divProdName"+rowCount+"'><select name='selProdName"+rowCount+"' id='selProdName"+rowCount+"' disabled='disabled'><option>---select---</option></select></div>";
+   thirdCell.innerHTML="<div id='divProdName"+rowCount+"'><select style='width: 110px' name='selProdName"+rowCount+"' id='selProdName"+rowCount+"' disabled='disabled'><option>---select---</option></select></div>";
    
    var fourthCell = row.insertCell(3);
    var option="";
@@ -147,19 +153,37 @@ function addRow(tableID) {
 	   } 
    }
   // alert(option);
-   fourthCell.innerHTML="<select name='selBrandName"+rowCount+"' id='selBrandName"+rowCount+"' disabled='disabled'>"+option+"</select>";
+   fourthCell.innerHTML="<select style='width: 110px' name='selBrandName"+rowCount+"' id='selBrandName"+rowCount+"' disabled='disabled'>"+option+"</select>";
+   
+   var fourthCell1 = row.insertCell(4);
+   var option="";
+   var unitName=document.getElementById("hdnUnitName").value;  
+   var unitValue=document.getElementById("hdnUnitValue").value;  
+   var arrUnitName=unitName.split(",");
+   var arrUnitValue=unitValue.split(",");
+   for(var i=0;i<arrUnitName.length;i++){
+	 //  alert(arrCatValue[i]+"<=> "+arrCatName[i]);
+	   if(option!=""){
+		   option=option+"<option value='"+arrUnitValue[i]+"'>"+arrUnitName[i]+"</option>";
+	   }else{
+		   option="<option value=''>---select---</option><option value='"+arrUnitValue[i]+"'>"+arrUnitName[i]+"</option>";
+	   } 
+   }
+  // alert(option);
+   fourthCell1.innerHTML="<select style='width: 110px' name='selUnitName"+rowCount+"' id='selUnitName"+rowCount+"' disabled='disabled'>"+option+"</select>"; 
+   
    
    //alert(rowCount);
-   var fifthCell = row.insertCell(4);  
-   fifthCell.innerHTML="<input type='text' name='txtPrice"+rowCount+"' id='txtPrice"+rowCount+"' disabled='disabled'>";
+   var fifthCell = row.insertCell(5);  
+   fifthCell.innerHTML="<input style='width: 110px' type='text' name='txtPrice"+rowCount+"' id='txtPrice"+rowCount+"' disabled='disabled'>";
    
-   var sixthCell = row.insertCell(5);  
-   sixthCell.innerHTML="<input type='text' name='txtProdDesc"+rowCount+"' id='txtProdDesc"+rowCount+"' disabled='disabled'>";
+   var sixthCell = row.insertCell(6);  
+   sixthCell.innerHTML="<input style='width: 110px' type='text' name='txtProdDesc"+rowCount+"' id='txtProdDesc"+rowCount+"' disabled='disabled'>";
    
-   var seventhCell = row.insertCell(6);  
-   seventhCell.innerHTML="<input type='text' name='txtComment"+rowCount+"' id='txtComment"+rowCount+"' disabled='disabled'>";
+   var seventhCell = row.insertCell(7);  
+   seventhCell.innerHTML="<input style='width: 110px' type='text' name='txtComment"+rowCount+"' id='txtComment"+rowCount+"' disabled='disabled'>";
    
-   var eighthCell = row.insertCell(7);  
+   var eighthCell = row.insertCell(8);  
    eighthCell.innerHTML="<img name='imgRemove' id='imgRemove' src='images/remove.jpg' height='18' width='20' onclick='deleteRow()'>";
    
    document.getElementById("hdnDynArrCnt").value=rowCount;
@@ -205,6 +229,7 @@ try{
 					<th>Category</th>
 					<th>Product</th>
 					<th>Brand</th>
+					<th>Unit</th>
 					<th>Price</th>
 					<th>Product Description</th>
 					<th>Comment <img name="imgAdd" id="imgAdd" src="images/add.jpg" height="18" width="20" onclick="addRow('dataTable')"></th>
@@ -233,7 +258,7 @@ try{
 							Statement st1 = con.createStatement();
 							ResultSet rs1 = st1.executeQuery(selectQry);							
 						%>
-							<select name="selCat<%=cnt %>" id="selCat<%=cnt%>" onchange="showProdByCatId(<%=cnt %>)" hidden="true" required="required">
+							<select name="selCat<%=cnt %>" style="width: 110px" id="selCat<%=cnt%>" onchange="showProdByCatId(<%=cnt %>)" hidden="true" required="required">
 								<option value="">---Select---</option>
 								<%
 								
@@ -276,7 +301,7 @@ try{
 							Statement st_prod=con.createStatement();
 							ResultSet rs_prod=st_prod.executeQuery(qry_prod);								 
 							%>
-						<select name="selProdName<%=cnt%>" id="selProdName<%=cnt%>" required="required" hidden="true">
+						<select name="selProdName<%=cnt%>" style="width: 110px" id="selProdName<%=cnt%>" required="required" hidden="true">
 							<option value="">---select---</option>
 							<%
 								while(rs_prod.next()){
@@ -306,7 +331,7 @@ try{
 							ResultSet rs_brand=st_brand.executeQuery(qry_brand);										
 							try{
 					%>					
-						<select name="selBrandName<%=cnt%>" id="selBrandName<%=cnt%>" hidden="true" required="required">
+						<select name="selBrandName<%=cnt%>" style="width: 110px" id="selBrandName<%=cnt%>" hidden="true" required="required">
 							<option value="">---select---</option>
 							<%
 							
@@ -336,27 +361,69 @@ try{
 						<input type="hidden" name="hdnBrandName" id="hdnBrandName" value="<%=brandName%>">
 						<input type="hidden" name="hdnBrandValue" id="hdnBrandValue" value="<%=brandValue%>">
 						<%}catch(Exception ex){
-							
+							ex.printStackTrace();	
 						}}catch(Exception ex){
-							
+							ex.printStackTrace();
+						} %>
+					</td>
+					<td>	
+					<%
+						try{
+							String unitName=null,unitValue=null,unit=null;
+							String qry_unit="select * from units";
+							Statement st_unit=con.createStatement();
+							ResultSet rs_unit=st_unit.executeQuery(qry_unit);										
+							try{
+					%>					
+						<select name="selUnitName<%=cnt%>" id="selUnitName<%=cnt%>" required="required" hidden="true" style="width: 110px">
+							<option value="">---select---</option>
+							<%
+							while(rs_unit.next()){
+								if(unitName!=null){
+									unitName=unitName+","+rs_unit.getString(2);
+									unitValue=unitValue+","+rs_unit.getString(1);
+								}else{
+									unitName=rs_unit.getString(2);
+									unitValue=rs_unit.getString(1);
+								}
+								if(rs_unit.getInt(1)==rs_showAsignProd.getInt(9)){
+									unit=rs_unit.getString(2);
+									%>
+									<option value="<%=rs_unit.getInt(1)%>" selected="selected"><%=rs_unit.getString(2) %></option>
+									<%
+								}else{
+									%>
+									<option value="<%=rs_unit.getInt(1)%>"><%=rs_unit.getString(2) %></option>
+									<%
+								}
+								
+							} 								
+							%>
+						</select>
+						<span id="spanUnitName<%=cnt%>"><%out.println(unit); %></span>
+						<input type="hidden" name="hdnUnitName" id="hdnUnitName" value="<%=unitName%>">
+						<input type="hidden" name="hdnUnitValue" id="hdnUnitValue" value="<%=unitValue%>">
+						<%}catch(Exception ex){
+							ex.printStackTrace();
+						}}catch(Exception ex){
+							ex.printStackTrace();
 						} %>
 					</td>
 					<td>
 						<span id="spanPrice<%=cnt%>"><%=rs_showAsignProd.getDouble(2) %></span>
-						<input type="text" name="txtPrice<%=cnt %>" id="txtPrice<%=cnt%>" hidden="true" value="<%=rs_showAsignProd.getDouble(2) %>" required="required">
+						<input type="text" style="width: 110px" name="txtPrice<%=cnt %>" id="txtPrice<%=cnt%>" hidden="true" value="<%=rs_showAsignProd.getDouble(2) %>" required="required">
 					</td>
 					<td>
 						<span id="spanProdDesc<%=cnt%>"><%=rs_showAsignProd.getString(3) %></span>
-						<input type="text" name="txtProdDesc<%=cnt %>" id="txtProdDesc<%=cnt%>" hidden="true" value="<%=rs_showAsignProd.getString(3) %>">
+						<input type="text" style="width: 110px" name="txtProdDesc<%=cnt %>" id="txtProdDesc<%=cnt%>" hidden="true" value="<%=rs_showAsignProd.getString(3) %>">
 					</td>
 					<td>
 						<span id="spanComment<%=cnt%>"><%=rs_showAsignProd.getString(4) %></span>
-						<input type="text" name="txtComment<%=cnt %>" id="txtComment<%=cnt%>" hidden="true" value="<%=rs_showAsignProd.getString(4) %>">
+						<input type="text" style="width: 110px" name="txtComment<%=cnt %>" id="txtComment<%=cnt%>" hidden="true" value="<%=rs_showAsignProd.getString(4) %>">
 					</td>
-					<td>
-						
-						<input type="submit" name="sbtEdit<%=cnt %>" id="sbtEdit<%=cnt%>" hidden="true" value="Save" onclick="this.form.action='action/assignVendorToProductAction.jsp?assignProd_Vendor_id=<%=rs_showAsignProd.getInt(1)%>&count=<%= cnt %>'">
-						<input type="submit" name="sbtDelete<%=cnt %>" id="sbtDelete<%=cnt%>" hidden="true" value="Delete" onclick="this.form.action='action/assignVendorToProductAction.jsp?assignProd_Vendor_id=<%=rs_showAsignProd.getInt(1)%>&count=<%= cnt %>'">
+					<td>						
+						<input style="width: 2px" type="submit" name="sbtEdit<%=cnt %>" id="sbtEdit<%=cnt%>" hidden="true" value="Save" onclick="this.form.action='action/assignVendorToProductAction.jsp?assignProd_Vendor_id=<%=rs_showAsignProd.getInt(1)%>&count=<%= cnt %>'">
+						<input style="width: 2px" type="submit" name="sbtDelete<%=cnt %>" id="sbtDelete<%=cnt%>" hidden="true" value="Delete" onclick="this.form.action='action/assignVendorToProductAction.jsp?assignProd_Vendor_id=<%=rs_showAsignProd.getInt(1)%>&count=<%= cnt %>'">
 					</td>
 				</tr>				
 				<%
@@ -364,8 +431,7 @@ try{
 					}catch(Exception ex){
 						ex.printStackTrace();
 					}
-				%>
-				
+				%>				
 			</table>
 			
 			<input style="text-align: center;" type="submit" id="sbtAdd" name="sbtInsert" value="Add" onclick="frmAssignVendorToProd.action='action/assignVendorToProductAction.jsp?count=0'" hidden="true">			

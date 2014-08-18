@@ -20,7 +20,7 @@ try{
 		
 		String arr[]=null;
 		String comment=null,prod_desc=null;
-		int cnt=0,prod_id=0,brand_id=0;
+		int cnt=0,prod_id=0,brand_id=0,unit_id=0;
 		double price=0;
 		int assignProd_Vendor_id=0;
 		arr=request.getParameterValues("chkProd");			
@@ -31,12 +31,13 @@ try{
 				cat_id=Integer.parseInt(request.getParameter("selCat"+arr[i]));
 				prod_id=Integer.parseInt(request.getParameter("selProdName"+arr[i]));
 				brand_id=Integer.parseInt(request.getParameter("selBrandName"+arr[i]));
+				unit_id=Integer.parseInt(request.getParameter("selUnitName"+arr[i]));
 				price=Double.parseDouble(request.getParameter("txtPrice"+arr[i]));			
 				prod_desc=request.getParameter("txtProdDesc"+arr[i]);
 				comment=request.getParameter("txtComment"+arr[i]);
 				/* out.println(prod_id+" "+brand_id+" "+vendor_id+" "+comment+" "+prod_desc+"\n");
 				out.println("arr.length:=>>>"+arr.length); */
-				String query = "insert into assignvendortoprod(cat_id_fk,price,prod_desc,comment,prod_id_fk,brand_id_fk,vendor_id_fk) values("+cat_id+"," +price + ",'" +prod_desc + "','" +comment + "'," +prod_id + "," +brand_id + "," +vendor_id + ")";
+				String query = "insert into assignvendortoprod(cat_id_fk,price,prod_desc,comment,prod_id_fk,brand_id_fk,vendor_id_fk,unit_id_fk) values("+cat_id+"," +price + ",'" +prod_desc + "','" +comment + "'," +prod_id + "," +brand_id + "," +vendor_id + ","+unit_id+")";
 				
 				System.out.println("query:=>>>"+query);
 				Statement stmt = con.createStatement();
@@ -51,11 +52,12 @@ try{
 				cat_id=Integer.parseInt(request.getParameter("selCat"+i));
 				prod_id=Integer.parseInt(request.getParameter("selProdName"+i));
 				brand_id=Integer.parseInt(request.getParameter("selBrandName"+i));
+				unit_id=Integer.parseInt(request.getParameter("selUnitName"+i));
 				price=Double.parseDouble(request.getParameter("txtPrice"+i));			
 				prod_desc=request.getParameter("txtProdDesc"+i);
 				comment=request.getParameter("txtComment"+i);
 				
-				String query = "insert into assignvendortoprod(cat_id_fk,price,prod_desc,comment,prod_id_fk,brand_id_fk,vendor_id_fk) values("+cat_id+"," +price + ",'" +prod_desc + "','" +comment + "'," +prod_id + "," +brand_id + "," +vendor_id + ")";
+				String query = "insert into assignvendortoprod(cat_id_fk,price,prod_desc,comment,prod_id_fk,brand_id_fk,vendor_id_fk,unit_id_fk) values("+cat_id+"," +price + ",'" +prod_desc + "','" +comment + "'," +prod_id + "," +brand_id + "," +vendor_id + ","+unit_id+")";
 				
 				System.out.println("query:=>>>"+query);
 				Statement stmt = con.createStatement();
@@ -72,13 +74,12 @@ try{
 				cat_id=Integer.parseInt(request.getParameter("selCat"+count));
 				prod_id=Integer.parseInt(request.getParameter("selProdName"+count));
 				brand_id=Integer.parseInt(request.getParameter("selBrandName"+count));
+				unit_id=Integer.parseInt(request.getParameter("selUnitName"+count));
 				price=Double.parseDouble(request.getParameter("txtPrice"+count));			
 				prod_desc=request.getParameter("txtProdDesc"+count);
 				comment=request.getParameter("txtComment"+count);
 				
-				//out.println(prod_id+" "+brand_id+" "+vendor_id+" "+comment+" "+prod_desc+"\n");
-				//out.println("arr.length:=>>>"+arr.length); 
-				String query = "update assignvendortoprod set cat_id_fk="+cat_id+",price="+price+",prod_desc='"+prod_desc+"',comment='"+comment+"',prod_id_fk="+prod_id+",brand_id_fk="+brand_id+",vendor_id_fk="+vendor_id+" where ass_vend_prod_id="+assignProd_Vendor_id;
+				String query = "update assignvendortoprod set cat_id_fk="+cat_id+",price="+price+",prod_desc='"+prod_desc+"',comment='"+comment+"',prod_id_fk="+prod_id+",brand_id_fk="+brand_id+",vendor_id_fk="+vendor_id+",unit_id_fk="+unit_id+" where ass_vend_prod_id="+assignProd_Vendor_id;
 					
 				System.out.println("query:=>>>"+query);
 				Statement stmt = con.createStatement();
